@@ -4,13 +4,13 @@ package cn.woodwhales.webhook.base;
  * @author woodwhales on 2021-07-16 21:17
  * @description
  */
-public interface BaseWebhook {
+public interface BaseWebhookProduct {
 
     /**
      * webhook 类型
      * @return
      */
-    WebhookTypeEnum webhookType();
+    WebhookProductEnum webhookType();
 
     /**
      * 简单文本通知
