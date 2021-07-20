@@ -26,7 +26,49 @@ WebhookRequestBodyFactory 数据请求对象工厂
 
 ![](doc/images/woodwhales-common-webhook.png)
 
-plantUml
+## 代码示例
+
+> 具体使用示例参见：[src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java](https://github.com/woodwhales/woodwhales-common-webhook/blob/main/woodwhales-common-webhook-commons/src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java)
+
+方式1：
+
+```java
+@Test
+public void DingTalkExecutor() {
+    String url = "https://oapi.dingtalk.com/robot/send?access_token=zzz";
+
+    BaseWebhookRequestBody requestBody = WebhookRequestBodyFactory.newInstance(WebhookProductEnum.DING_TALK, "test title");
+    requestBody.addContent("key1：", "value1");
+    requestBody.addContent("key2：", "value2");
+    requestBody.addContent("key3：", "value3");
+
+    GlobalInfo globalInfo = new GlobalInfo(new NullPointerException("报错啦"), "cn.woodwhales.webhook");
+    requestBody.addGlobalInfo(globalInfo);
+
+    WebhookExecutorFactory.execute(url, requestBody);
+}
+```
+
+方式2：
+
+```java
+@Test
+public void WeComExecutor() {
+    String url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=yyy";
+
+    WebhookExecutorFactory.execute(WebhookProductEnum.WE_COM, url, "test title", req -> {
+        req.addContent("key1：", "value1");
+        req.addContent("key2：", "value2");
+        req.addContent("key3：", "value3");
+        GlobalInfo globalInfo = new GlobalInfo(new NullPointerException("报错啦"), "cn.woodwhales.webhook");
+        req.addGlobalInfo(globalInfo);
+    });
+}
+```
+
+## 附件
+
+### 组件关系图 plantUml 源码
 
 ```plantuml
 @startuml
@@ -72,44 +114,3 @@ we .up.> ws: https
 
 @enduml
 ```
-
-## 代码示例
-
-> 具体使用示例参见：[src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java](https://github.com/woodwhales/woodwhales-common-webhook/blob/main/woodwhales-common-webhook-commons/src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java)
-
-方式1：
-
-```java
-@Test
-public void DingTalkExecutor() {
-    String url = "https://oapi.dingtalk.com/robot/send?access_token=zzz";
-
-    BaseWebhookRequestBody requestBody = WebhookRequestBodyFactory.newInstance(WebhookProductEnum.DING_TALK, "test title");
-    requestBody.addContent("key1：", "value1");
-    requestBody.addContent("key2：", "value2");
-    requestBody.addContent("key3：", "value3");
-
-    GlobalInfo globalInfo = new GlobalInfo(new NullPointerException("报错啦"), "cn.woodwhales.webhook");
-    requestBody.addGlobalInfo(globalInfo);
-
-    WebhookExecutorFactory.execute(url, requestBody);
-}
-```
-
-方式2：
-
-```java
-@Test
-public void WeComExecutor() {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=yyy";
-
-    WebhookExecutorFactory.execute(WebhookProductEnum.WE_COM, url, "test title", req -> {
-        req.addContent("key1：", "value1");
-        req.addContent("key2：", "value2");
-        req.addContent("key3：", "value3");
-        GlobalInfo globalInfo = new GlobalInfo(new NullPointerException("报错啦"), "cn.woodwhales.webhook");
-        req.addGlobalInfo(globalInfo);
-    });
-}
-```
-
