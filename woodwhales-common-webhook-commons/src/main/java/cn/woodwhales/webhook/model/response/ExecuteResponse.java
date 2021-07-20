@@ -1,4 +1,4 @@
-package cn.woodwhales.model;
+package cn.woodwhales.webhook.model.response;
 
 /**
  * @author woodwhales on 2021-07-19 9:38

@@ -1,4 +1,4 @@
-package cn.woodwhales.webhook.base;
+package cn.woodwhales.webhook.enums;
 
 /**
  * @author woodwhales on 2021-07-16 21:09

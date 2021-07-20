@@ -1,9 +1,10 @@
-package cn.woodwhales.executor;
+package cn.woodwhales.webhook.executor;
 
-import cn.woodwhales.model.ExecuteResponse;
-import cn.woodwhales.model.request.DingTalkRequestBody;
 import cn.woodwhales.model.response.DingTalkResponse;
-import cn.woodwhales.webhook.base.WebhookProductEnum;
+import cn.woodwhales.webhook.enums.WebhookProductEnum;
+import cn.woodwhales.webhook.model.request.BaseWebhookRequestBody;
+import cn.woodwhales.webhook.model.request.DingTalkRequestBody;
+import cn.woodwhales.webhook.model.response.ExecuteResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -20,7 +21,7 @@ import java.util.Objects;
  *
  */
 @Slf4j
-public class DingTalkExecutor extends BaseWebhookExecutor<DingTalkRequestBody, DingTalkResponse> {
+public class DingTalkExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<DingTalkRequestBody, DingTalkResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
@@ -35,7 +36,7 @@ public class DingTalkExecutor extends BaseWebhookExecutor<DingTalkRequestBody, D
         return Objects.equals(ERR_CODE_SUCCESS, dingTalkResponse.getErrcode());
     }
 
-    public static DingTalkExecutor newInstance() {
+    public static <RequestBody extends BaseWebhookRequestBody> DingTalkExecutor<RequestBody> newInstance() {
         return new DingTalkExecutor();
     }
 

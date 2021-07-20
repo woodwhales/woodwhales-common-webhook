@@ -1,10 +1,7 @@
-package cn.woodwhales.model.request;
+package cn.woodwhales.webhook.model.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -17,19 +14,11 @@ public class DingTalkRequestBody extends BaseWebhookRequestBody {
     private String msgtype = "markdown";
     private MarkdownContent markdown = new MarkdownContent();
 
-    @JsonIgnore
-    private Map<String, String> map = new LinkedHashMap<>();
-
     public static DingTalkRequestBody newInstance(String title) {
         DingTalkRequestBody dingTalkRequestBody = new DingTalkRequestBody();
         dingTalkRequestBody.getMarkdown().setTitle(title);
         dingTalkRequestBody.getMap().put("# ", title);
         return dingTalkRequestBody;
-    }
-
-    public DingTalkRequestBody addContent(String tag, String text) {
-        map.put(tag, text);
-        return this;
     }
 
     @Override

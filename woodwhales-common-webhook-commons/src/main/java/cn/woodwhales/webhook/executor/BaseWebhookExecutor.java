@@ -1,9 +1,9 @@
-package cn.woodwhales.executor;
+package cn.woodwhales.webhook.executor;
 
-import cn.woodwhales.model.ExecuteParam;
-import cn.woodwhales.model.ExecuteResponse;
-import cn.woodwhales.model.request.BaseWebhookRequestBody;
-import cn.woodwhales.webhook.base.WebhookProductEnum;
+import cn.woodwhales.webhook.enums.WebhookProductEnum;
+import cn.woodwhales.webhook.model.param.ExecuteParam;
+import cn.woodwhales.webhook.model.request.BaseWebhookRequestBody;
+import cn.woodwhales.webhook.model.response.ExecuteResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,7 +14,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.Objects;
+
+import static java.util.Objects.nonNull;
 
 /**
  * @author woodwhales on 2021-07-16 21:24
@@ -140,7 +141,7 @@ public abstract class BaseWebhookExecutor<RequestBody extends BaseWebhookRequest
     }
 
     public void execute(String url, RequestBody requestBody) {
-        if(Objects.nonNull(requestBody)) {
+        if(nonNull(requestBody)) {
             this.execute(url, requestBody.toJsonSting());
         } else {
             log.warn("dingTalkRequestBody is NULL");

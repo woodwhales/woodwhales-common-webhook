@@ -1,9 +1,10 @@
-package cn.woodwhales.executor;
+package cn.woodwhales.webhook.executor;
 
-import cn.woodwhales.model.ExecuteResponse;
-import cn.woodwhales.model.request.WeComRequestBody;
 import cn.woodwhales.model.response.WeComResponse;
-import cn.woodwhales.webhook.base.WebhookProductEnum;
+import cn.woodwhales.webhook.enums.WebhookProductEnum;
+import cn.woodwhales.webhook.model.request.BaseWebhookRequestBody;
+import cn.woodwhales.webhook.model.request.WeComRequestBody;
+import cn.woodwhales.webhook.model.response.ExecuteResponse;
 
 import java.util.Objects;
 
@@ -11,11 +12,11 @@ import java.util.Objects;
  * @author woodwhales on 2021-07-19 11:32
  * @description
  */
-public class WeComExecutor extends BaseWebhookExecutor<WeComRequestBody, WeComResponse> {
+public class WeComExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<WeComRequestBody, WeComResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
-    public static WeComExecutor newInstance() {
+    public static <RequestBody extends BaseWebhookRequestBody> WeComExecutor<RequestBody> newInstance() {
         return new WeComExecutor();
     }
 

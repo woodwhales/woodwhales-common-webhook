@@ -1,9 +1,10 @@
-package cn.woodwhales.executor;
+package cn.woodwhales.webhook.executor;
 
-import cn.woodwhales.model.ExecuteResponse;
-import cn.woodwhales.model.request.FeiShuRequestBody;
 import cn.woodwhales.model.response.FeiShuResponse;
-import cn.woodwhales.webhook.base.WebhookProductEnum;
+import cn.woodwhales.webhook.enums.WebhookProductEnum;
+import cn.woodwhales.webhook.model.request.BaseWebhookRequestBody;
+import cn.woodwhales.webhook.model.request.FeiShuRequestBody;
+import cn.woodwhales.webhook.model.response.ExecuteResponse;
 
 import java.util.Objects;
 
@@ -16,11 +17,11 @@ import java.util.Objects;
  *         "msg": "Key Words Not Found"
  * }
  */
-public class FeiShuExecutor extends BaseWebhookExecutor<FeiShuRequestBody, FeiShuResponse> {
+public class FeiShuExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<FeiShuRequestBody, FeiShuResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
-    public static FeiShuExecutor newInstance() {
+    public static <RequestBody extends BaseWebhookRequestBody> FeiShuExecutor<RequestBody> newInstance() {
         return new FeiShuExecutor();
     }
 

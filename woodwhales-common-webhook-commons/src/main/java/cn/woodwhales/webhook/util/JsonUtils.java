@@ -1,19 +1,20 @@
-package cn.woodwhales.util;
+package cn.woodwhales.webhook.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
 /**
  * 通用Json工具类
  *
+ * @author woodwhales
  */
 public final class JsonUtils {
 
@@ -78,7 +79,7 @@ public final class JsonUtils {
      * @return
      */
     public static <T> T toObject(String json, Class<T> clazz) {
-        if (StringUtils.isEmpty(json)) {
+        if (StringUtils.isBlank(json)) {
             return null;
         }
         try {
@@ -97,7 +98,7 @@ public final class JsonUtils {
      * @return
      */
     public static <T> T toTypeReference(String json, TypeReference<T> typeReference) {
-        if (StringUtils.isEmpty(json)) {
+        if (StringUtils.isBlank(json)) {
             return null;
         }
         try {
@@ -116,7 +117,7 @@ public final class JsonUtils {
      * @return
      */
     public static <T> T toJavaType(String json, JavaType javaType) {
-        if (StringUtils.isEmpty(json)) {
+        if (StringUtils.isBlank(json)) {
             return null;
         }
         try {

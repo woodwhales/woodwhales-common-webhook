@@ -1,8 +1,8 @@
-package cn.woodwhales.model.request;
+package cn.woodwhales.webhook.model.request;
 
 import lombok.Data;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,12 +22,18 @@ public class FeiShuRequestBody extends BaseWebhookRequestBody {
         return feiShuNoticeRequestBody;
     }
 
-    public FeiShuRequestBody addContent(String tag, String text) {
-        List<ContentItemDTO> contentPair = new ArrayList<>();
-        contentPair.add(new ContentItemDTO(tag));
-        contentPair.add(new ContentItemDTO(text));
-        this.getContent().getPost().getZh_cn().getContent().add(contentPair);
-        return this;
+    @Override
+    public String toJsonSting() {
+        map.entrySet()
+           .stream()
+           .forEach(entry ->
+                this.getContent()
+                    .getPost()
+                    .getZh_cn()
+                    .getContent()
+                    .add(Arrays.asList(new ContentItemDTO(entry.getKey()), new ContentItemDTO(entry.getValue())))
+           );
+        return super.toJsonSting();
     }
 
     private String msg_type = "post";
