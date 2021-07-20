@@ -16,15 +16,15 @@ public class WebhookExecutorFactory {
         BaseWebhookExecutor baseWebhookExecutor = null;
         switch (webhookProductEnum) {
             case WE_COM :
-                baseWebhookExecutor = WeComExecutor.<RequestBody>newInstance();
+                baseWebhookExecutor = WeComWebhookExecutor.<RequestBody>newInstance();
                 break;
 
             case DING_TALK :
-                baseWebhookExecutor = DingTalkExecutor.<RequestBody>newInstance();
+                baseWebhookExecutor = DingTalkWebhookExecutor.<RequestBody>newInstance();
                 break;
 
             case FEI_SHU :
-                baseWebhookExecutor = FeiShuExecutor.<RequestBody>newInstance();
+                baseWebhookExecutor = FeiShuWebhookExecutor.<RequestBody>newInstance();
                 break;
         }
         return baseWebhookExecutor;

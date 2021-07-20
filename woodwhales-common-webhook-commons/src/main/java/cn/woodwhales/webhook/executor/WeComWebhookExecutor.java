@@ -12,12 +12,12 @@ import java.util.Objects;
  * @author woodwhales on 2021-07-19 11:32
  * @description
  */
-public class WeComExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<WeComRequestBody, WeComResponse> {
+public class WeComWebhookExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<WeComRequestBody, WeComResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
-    public static <RequestBody extends BaseWebhookRequestBody> WeComExecutor<RequestBody> newInstance() {
-        return new WeComExecutor();
+    public static <RequestBody extends BaseWebhookRequestBody> WeComWebhookExecutor<RequestBody> newInstance() {
+        return new WeComWebhookExecutor();
     }
 
     @Override

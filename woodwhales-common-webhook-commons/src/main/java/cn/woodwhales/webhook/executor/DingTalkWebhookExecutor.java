@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  */
 @Slf4j
-public class DingTalkExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<DingTalkRequestBody, DingTalkResponse> {
+public class DingTalkWebhookExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<DingTalkRequestBody, DingTalkResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
@@ -36,8 +36,8 @@ public class DingTalkExecutor<RequestBody extends BaseWebhookRequestBody> extend
         return Objects.equals(ERR_CODE_SUCCESS, dingTalkResponse.getErrcode());
     }
 
-    public static <RequestBody extends BaseWebhookRequestBody> DingTalkExecutor<RequestBody> newInstance() {
-        return new DingTalkExecutor();
+    public static <RequestBody extends BaseWebhookRequestBody> DingTalkWebhookExecutor<RequestBody> newInstance() {
+        return new DingTalkWebhookExecutor();
     }
 
 }

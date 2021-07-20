@@ -17,12 +17,12 @@ import java.util.Objects;
  *         "msg": "Key Words Not Found"
  * }
  */
-public class FeiShuExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<FeiShuRequestBody, FeiShuResponse> {
+public class FeiShuWebhookExecutor<RequestBody extends BaseWebhookRequestBody> extends BaseWebhookExecutor<FeiShuRequestBody, FeiShuResponse> {
 
     private static final int ERR_CODE_SUCCESS = 0;
 
-    public static <RequestBody extends BaseWebhookRequestBody> FeiShuExecutor<RequestBody> newInstance() {
-        return new FeiShuExecutor();
+    public static <RequestBody extends BaseWebhookRequestBody> FeiShuWebhookExecutor<RequestBody> newInstance() {
+        return new FeiShuWebhookExecutor();
     }
 
     @Override
