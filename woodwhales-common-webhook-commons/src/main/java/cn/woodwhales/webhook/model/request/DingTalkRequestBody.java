@@ -22,17 +22,16 @@ public class DingTalkRequestBody extends BaseWebhookRequestBody {
     }
 
     @Override
-    public String toJsonSting() {
+    public void preToJsonSting() {
         StringBuilder stringBuilder = new StringBuilder();
-        if(Objects.nonNull(map) && !map.isEmpty()) {
-            map.entrySet().stream().forEach(entry ->
+        if(Objects.nonNull(this.map) && !this.map.isEmpty()) {
+            this.map.entrySet().stream().forEach(entry ->
                                                 stringBuilder.append(entry.getKey())
                                                              .append(entry.getValue())
                                                              .append(" \n\r")
             );
         }
         this.markdown.setText(stringBuilder.toString());
-        return super.toJsonSting();
     }
 
     @Data

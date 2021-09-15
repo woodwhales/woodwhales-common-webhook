@@ -14,24 +14,35 @@ import java.util.Map;
  * @author woodwhales on 2021-07-19 14:52
  * @description
  */
-public class BaseWebhookRequestBody {
+public abstract class BaseWebhookRequestBody {
 
     @JsonIgnore
     protected WebhookProductEnum webhookProductEnum;
 
     @JsonIgnore
+    protected GlobalInfo globalInfo;
+
+    @JsonIgnore
     protected Map<String, String> map = new LinkedHashMap<>();
 
     public String toJsonSting() {
+        List<Pair<String, String>> allInfoPair = this.globalInfo.getAllInfoPair();
+        allInfoPair.stream().forEach(pair -> map.put(pair.getLeft(), pair.getRight()));
+        preToJsonSting();
         return JsonUtils.toJson(this);
     }
+
+    /**
+     * 对象转json字符串之前的操作
+     */
+    public abstract void preToJsonSting();
 
     public Map<String, String> getMap() {
         return map;
     }
 
     public BaseWebhookRequestBody addContent(String tag, String text) {
-        map.put(tag, text);
+        this.map.put(tag, text);
         return this;
     }
 
@@ -44,8 +55,7 @@ public class BaseWebhookRequestBody {
     }
 
     public BaseWebhookRequestBody addGlobalInfo(GlobalInfo globalInfo) {
-        List<Pair<String, String>> allInfoPair = globalInfo.getAllInfoPair();
-        allInfoPair.stream().forEach(pair -> map.put(pair.getLeft(), pair.getRight()));
+        this.globalInfo = globalInfo;
         return this;
     }
 

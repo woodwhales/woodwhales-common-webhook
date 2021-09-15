@@ -1,5 +1,6 @@
 package cn.woodwhales.webhook.model;
 
+import cn.woodwhales.webhook.enums.WebhookProductEnum;
 import com.google.common.base.Throwables;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -34,27 +35,53 @@ public class GlobalInfo {
      */
     private int LIMIT = 20_000 / 3;
 
+    private WebhookProductEnum webhookProductEnum;
+
     private String defaultErrorDesc = "异常栈信息太长，不打印全栈日志";
 
-    public GlobalInfo(Throwable throwable, String basePackName, LinkedHashMap<String, String> machineInfoMap, Properties gitProperties) {
+    public GlobalInfo(WebhookProductEnum webhookProductEnum,
+                      Throwable throwable,
+                      String basePackName,
+                      LinkedHashMap<String, String> machineInfoMap,
+                      Properties gitProperties) {
+        this.webhookProductEnum = webhookProductEnum;
         this.throwable = throwable;
         this.basePackName = basePackName;
         this.machineInfoMap = machineInfoMap;
         this.gitProperties = gitProperties;
     }
 
-    public GlobalInfo(Throwable throwable, String basePackName) {
+    public GlobalInfo(WebhookProductEnum webhookProductEnum,
+                      Throwable throwable,
+                      String basePackName) {
+        this.webhookProductEnum = webhookProductEnum;
         this.throwable = throwable;
+        this.basePackName = basePackName;
+    }
+
+    public void setMachineInfoMap(LinkedHashMap<String, String> machineInfoMap) {
+        this.machineInfoMap = machineInfoMap;
+    }
+
+    public void setGitProperties(Properties gitProperties) {
+        this.gitProperties = gitProperties;
+    }
+
+    public void setBasePackName(String basePackName) {
         this.basePackName = basePackName;
     }
 
     public List<Pair<String, String>> getAllInfoPair() {
         List<Pair<String, String>> allInfoPair = new ArrayList<>();
         generateOccurTime(allInfoPair);
-        generateThrowable(allInfoPair);
-        generateMachineInfoMap(allInfoPair);
         generateGitProperties(allInfoPair);
+        generateMachineInfoMap(allInfoPair);
+        generateThrowable(allInfoPair);
         return allInfoPair;
+    }
+
+    public String getOccurTime() {
+        return occurTime;
     }
 
     private void generateOccurTime(List<Pair<String, String>> allInfoPair) {
@@ -113,7 +140,7 @@ public class GlobalInfo {
 
                 String stackTraceAsString = Throwables.getStackTraceAsString(this.throwable);
                 int length = StringUtils.length(stackTraceAsString);
-                if (this.LIMIT > length) {
+                if (this.webhookProductEnum.limitContentLength > length) {
                     allInfoPair.add(Pair.of("全栈异常信息：", stackTraceAsString));
                 } else {
                     allInfoPair.add(Pair.of("全栈异常信息：", this.defaultErrorDesc));

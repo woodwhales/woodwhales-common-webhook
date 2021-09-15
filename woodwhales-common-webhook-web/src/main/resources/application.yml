@@ -1,1 +1,6 @@
+server:
+  port: 13024
+  address: 0.0.0.0
 
+notice:
+  url: https://open.feishu.cn/open-apis/bot/v2/hook/xxx

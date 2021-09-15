@@ -12,6 +12,7 @@ import java.util.Objects;
 public class WeComRequestBody extends BaseWebhookRequestBody {
 
     private String msgtype = "markdown";
+
     private MarkdownContent markdown = new MarkdownContent();
 
     public static WeComRequestBody newInstance(String title) {
@@ -21,7 +22,7 @@ public class WeComRequestBody extends BaseWebhookRequestBody {
     }
 
     @Override
-    public String toJsonSting() {
+    public void preToJsonSting() {
         StringBuilder stringBuilder = new StringBuilder();
         if(Objects.nonNull(map) && !map.isEmpty()) {
             map.entrySet().stream().forEach(entry ->
@@ -31,7 +32,6 @@ public class WeComRequestBody extends BaseWebhookRequestBody {
             );
         }
         this.markdown.setContent(stringBuilder.toString());
-        return super.toJsonSting();
     }
 
     @Data

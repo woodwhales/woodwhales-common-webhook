@@ -23,7 +23,7 @@ public class FeiShuRequestBody extends BaseWebhookRequestBody {
     }
 
     @Override
-    public String toJsonSting() {
+    public void preToJsonSting() {
         map.entrySet()
            .stream()
            .forEach(entry ->
@@ -33,7 +33,6 @@ public class FeiShuRequestBody extends BaseWebhookRequestBody {
                     .getContent()
                     .add(Arrays.asList(new ContentItemDTO(entry.getKey()), new ContentItemDTO(entry.getValue())))
            );
-        return super.toJsonSting();
     }
 
     private String msg_type = "post";
