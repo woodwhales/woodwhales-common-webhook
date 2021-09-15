@@ -28,6 +28,89 @@ WebhookRequestBodyFactory 数据请求对象工厂
 
 ## 代码示例
 
+### spring-boot 项目使用示例
+
+> 具体使用示例参见：
+>
+> [src/main/java/cn/woodwhales/webhook/config/ApplicationEventConfig.java](https://github.com/woodwhales/woodwhales-common-webhook/blob/main/woodwhales-common-webhook-web/src/main/java/cn/woodwhales/webhook/config/ApplicationEventConfig.java)
+>
+> [src/main/java/cn/woodwhales/webhook/web/IndexController.java](https://github.com/woodwhales/woodwhales-common-webhook/blob/main/woodwhales-common-webhook-web/src/main/java/cn/woodwhales/webhook/web/IndexController.java)
+
+步骤1：监听 cn.woodwhales.webhook.event.WebhookEvent 事件，并注入通知地址。
+
+```java
+@Log4j2
+@Configuration
+public class ApplicationEventConfig {
+
+    @Value("${notice.url}")
+    private String noticeUrl;
+
+    private String basePackageName = "cn.woodwhales.webhook";
+
+    @Bean
+    public WebhookExtraInfo webhookExtraInfo() {
+        return new WebhookExtraInfo(5, TimeUnit.MINUTES);
+    }
+
+    @EventListener
+    public void handleCustomEvent(WebhookEvent webhookEvent) {
+        WebhookEventHandler.handleCustomEvent(webhookEvent, noticeUrl, basePackageName, webhookExtraInfo());
+    }
+
+}
+```
+
+步骤2：在业务代码中发布 WebhookEvent 事件即可。
+
+```java
+@RestController
+@RequestMapping("test")
+public class IndexController {
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    private RuntimeException exception = new RuntimeException("报错啦");
+
+    /**
+     *
+     * @param content
+     * @return
+     */
+    @GetMapping("/send")
+    public String send(@RequestParam("content") String content) {
+
+        // 方式1 显示创建指定webhook事件对象
+        example1(content);
+
+        // 方式1 不用显示创建指定webhook事件对象，根据通知发送链接自动识别创建对应的webhook事件对象
+        example2(content);
+
+        return "ok";
+    }
+
+    private void example1(String content) {
+        WebhookEvent webhookEvent = WebhookEventFactory.feiShu(this, "测试标题", exception, request -> {
+            request.addContent("content：", content);
+            request.addContent("key：", content);
+        });
+        applicationEventPublisher.publishEvent(webhookEvent);
+    }
+
+    private void example2(String content) {
+        WebhookEvent webhookEvent = WebhookEventFactory.newWebhookEvent(this, "测试标题", exception, request -> {
+            request.addContent("content：", content);
+            request.addContent("key：", content);
+        });
+        applicationEventPublisher.publishEvent(webhookEvent);
+    }
+
+}
+```
+
+### 非 spring-boot 项目使用示例
+
 > 具体使用示例参见：[src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java](https://github.com/woodwhales/woodwhales-common-webhook/blob/main/woodwhales-common-webhook-commons/src/test/java/cn/woodwhales/webhook/executor/WebhookExecutorTest.java)
 
 方式1：

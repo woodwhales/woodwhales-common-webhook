@@ -66,7 +66,10 @@ public abstract class BaseWebhookExecutor<RequestBody extends BaseWebhookRequest
      * @param executeResponse
      */
     protected void checkFailHandler(ExecuteParam executeParam, ExecuteResponse<Response> executeResponse) {
-        log.error("{}发送消息失败, requestContent = {}, originResponseContent = {}", webhookProductEnum().chineseName, executeParam.content, executeResponse.originResponseContent);
+        log.error("{}发送消息失败, requestContent = {}, originResponseContent = {}",
+                  webhookProductEnum().chineseName,
+                  executeParam.content,
+                  executeResponse.originResponseContent);
     }
 
     /**
@@ -75,7 +78,10 @@ public abstract class BaseWebhookExecutor<RequestBody extends BaseWebhookRequest
      * @param executeResponse
      */
     protected void checkSuccessHandler(ExecuteParam executeParam, ExecuteResponse<Response> executeResponse) {
-        log.info("{}发送消息成功, requestContent = {}, originResponseContent = {}", webhookProductEnum().chineseName, executeParam.content, executeResponse.originResponseContent);
+        log.info("{}发送消息成功, requestContent = {}, originResponseContent = {}",
+                 webhookProductEnum().chineseName,
+                 executeParam.content,
+                 executeResponse.originResponseContent);
     }
 
     /**
