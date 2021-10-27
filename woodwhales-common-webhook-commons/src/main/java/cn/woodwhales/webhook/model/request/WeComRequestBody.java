@@ -2,6 +2,7 @@ package cn.woodwhales.webhook.model.request;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.Objects;
 
 /**

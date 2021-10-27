@@ -27,7 +27,7 @@ public class WebhookEventFactory {
         return new WebhookEvent(source, throwable, null, title, consumer);
     }
 
-    public static WebhookEvent newWebhookEventWithUserIdList(Object source,
+    public static WebhookEvent newWebhookEventWithUserId(Object source,
                                                String title,
                                                Throwable throwable,
                                                Consumer<BaseWebhookRequestBody> consumer,

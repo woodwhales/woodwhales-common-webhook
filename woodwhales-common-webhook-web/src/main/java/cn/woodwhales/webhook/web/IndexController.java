@@ -33,7 +33,7 @@ public class IndexController {
     public String send(@RequestParam("content") String content) {
 
         // 方式1 显示创建指定webhook事件对象
-//        example1(content);
+        example1(content);
 
         // 方式1 不用显示创建指定webhook事件对象，根据通知发送链接自动识别创建对应的webhook事件对象
         example2(content);
@@ -50,7 +50,7 @@ public class IndexController {
     }
 
     private void example2(String content) {
-        WebhookEvent webhookEvent = WebhookEventFactory.newWebhookEventWithUserIdList(this, "测试标题", exception, request -> {
+        WebhookEvent webhookEvent = WebhookEventFactory.newWebhookEventWithUserId(this, "测试标题", exception, request -> {
             request.addContent("content：", content);
             request.addContent("key：", content);
         }, Arrays.asList("xxx"));

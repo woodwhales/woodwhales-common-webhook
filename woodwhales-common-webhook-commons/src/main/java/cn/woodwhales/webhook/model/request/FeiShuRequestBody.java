@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 @Data
 public class FeiShuRequestBody extends BaseWebhookRequestBody {
 
-
-
     public static FeiShuRequestBody newInstance(String title) {
         LinkedList<List<BaseContentItemDTO>> content = new LinkedList<>();
         PostContentDTO postContentDTO = new PostContentDTO(title, content);
