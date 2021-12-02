@@ -13,8 +13,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.woodwhales</groupId>
-            <artifactId>woodwhales-common-webhook-commons</artifactId>
+            <groupId>cn.woodwhales.common</groupId>
+            <artifactId>woodwhales-common</artifactId>
+            <version>3.6.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,8 +1,8 @@
 package cn.woodwhales.webhook.config;
 
-import cn.woodwhales.webhook.event.WebhookEvent;
-import cn.woodwhales.webhook.event.WebhookEventHandler;
-import cn.woodwhales.webhook.plugin.WebhookExtraInfo;
+import cn.woodwhales.common.webhook.event.WebhookEvent;
+import cn.woodwhales.common.webhook.event.WebhookEventHandler;
+import cn.woodwhales.common.webhook.plugin.WebhookExtraInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
