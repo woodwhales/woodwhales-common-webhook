@@ -3,4 +3,5 @@ server:
   address: 0.0.0.0
 
 notice:
-  url: https://oapi.dingtalk.com/robot/send?access_token=xxx
+  url: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx
+  secret:

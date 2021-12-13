@@ -22,6 +22,9 @@ public class ApplicationEventConfig {
     @Value("${notice.url}")
     private String noticeUrl;
 
+    @Value("${notice.secret}")
+    private String noticeSecret;
+
     private String basePackageName = "cn.woodwhales.webhook";
 
     @Bean
@@ -31,7 +34,7 @@ public class ApplicationEventConfig {
 
     @EventListener
     public void handleCustomEvent(WebhookEvent webhookEvent) {
-        WebhookEventHandler.handleCustomEvent(webhookEvent, noticeUrl, basePackageName, webhookExtraInfo());
+        WebhookEventHandler.handleCustomEvent(webhookEvent, noticeUrl, noticeSecret, basePackageName, webhookExtraInfo());
     }
 
 }
